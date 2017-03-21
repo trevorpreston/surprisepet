@@ -1,18 +1,17 @@
 'use strict'
-const webpack = require('webpack'),
-  path = require('path'),
-  HtmlWebpackPlugin = require('html-webpack-plugin'),
-  ExtractTextPlugin = require('extract-text-webpack-plugin'),
+const webpack           = require('webpack');
+const path              = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-  BUILD_DIR = path.resolve(__dirname, 'dist'),
-  APP_DIR = path.resolve(__dirname, 'src')
+const BUILD_DIR         = path.resolve(__dirname, 'dist');
+const APP_DIR           = path.resolve(__dirname, 'src/client/app');
 
 module.exports = {
-  entry: `${APP_DIR}/index.js`,
+  entry: `${APP_DIR}/App.jsx`,
   output: {
     path: BUILD_DIR,
     filename: '/js/[name].js',
-
   },
   cache: true,
   debug: true,
@@ -23,44 +22,58 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Vin\'s Cars',
+      title: 'surprise_pet',
       xhtml: true,
       inject: false,
       template: require('html-webpack-template'),
-      appMountId: 'root-container'
+      appMountId: 'container'
     }),
     new ExtractTextPlugin('/css/[name].css', {
       allChunks: true
     })
   ],
 
-  module : {
-    include: path.join(__dirname, 'src'),
-    loaders: [
-      {
-        test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]')
-      },
-      {
-        test: /\.svg$/,
-        loader: 'file-loader?name=/img/[name].[hash:base64:5].[ext]'
-      },
-      {
-        test: /\.gif$/,
-        loader: 'file-loader?name=/img/[name].[hash:base64:5].[ext]'
-      },
-      {
-        test: /\.jpg$/,
-        loader: 'file-loader?name=/img/[name].[hash:base64:5].[ext]'
-      },
-      {
-        test: /\.(js|jsx)$/,
-        loader: 'babel'
-      },
-      {
-        test: /\.otf(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'file-loader?name=/fonts/[name].[ext]'
-      }
-    ]
-  }
+
+ plugins: [
+/*    new webpack.optimize.UglifyJsPlugin({
+     compress:{
+       warnings: true
+     }
+   }),*/
+   new webpack.optimize.CommonsChunkPlugin('/js/common.js'),
+   new HtmlWebpackPlugin({
+     title: 'Share Bear',
+     xhtml: true,
+     inject: false,
+     template: require('html-webpack-template'),
+     appMountId: 'container'
+   }),
+   new ExtractTextPlugin('/css/[name].css', {
+     allChunks: true
+   })
+ ],
+
+ module : {
+   loaders: [
+     { test: /\.css$/,  loader: ExtractTextPlugin.extract('style-loader', 'css-loader') },
+     { test: /\.(png|gif|jpg)$/,  loader: 'file-loader?name=/images/[name].[ext]' },
+     { test: /\.jsx?$/, loader: 'babel'       },
+     {
+       test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
+       loader: 'url-loader?limit=100&mimetype=application/font-woff&name=/fonts/[name].[ext]'
+     },
+     {
+       test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+       loader: 'url-loader?limit=100&mimetype=application/octet-stream&name=/fonts/[name].[ext]'
+     },
+     {
+       test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+       loader: 'file-loader?name=/fonts/[name].[ext]'
+     },
+     {
+       test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+       loader: 'url-loader?limit=100&mimetype=image/svg+xml&name=/fonts/[name].[ext]'
+     }
+   ]
+ }
 };
