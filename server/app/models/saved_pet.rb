@@ -1,0 +1,2 @@
+class SavedPet < ApplicationRecord
+end

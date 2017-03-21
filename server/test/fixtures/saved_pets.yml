@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  animal_breed: 
+  animal_name: 
+  animal_id: 
+  city: 
+  zip: 1
+
+two:
+  animal_breed: 
+  animal_name: 
+  animal_id: 
+  city: 
+  zip: 1
