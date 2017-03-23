@@ -42,7 +42,7 @@ module.exports = {
    }),*/
    new webpack.optimize.CommonsChunkPlugin('/js/common.js'),
    new HtmlWebpackPlugin({
-     title: 'Share Bear',
+     title: 'Surprise Pet!',
      xhtml: true,
      inject: false,
      template: require('html-webpack-template'),
