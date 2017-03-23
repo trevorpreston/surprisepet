@@ -1,6 +1,7 @@
 import React            from 'react'
 import ReactDOM         from 'react-dom'
 import Savedpets 				from './Savedpets.jsx'
+import SearchPets				from './SearchPets.jsx'
 
 
 export default class App extends React.Component{
@@ -27,6 +28,7 @@ export default class App extends React.Component{
 	render(){
 		return (
 			<div>
+				<SearchPets />
 				<button onClick={() => this.getSavedPets()}> Get dem pets </button>
 				<Savedpets petsFromState = {this.state.savedPets}/>
 			</div>
