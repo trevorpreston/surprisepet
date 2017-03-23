@@ -2,11 +2,11 @@ import React from 'react'
 
 export default class Savedpets extends React.Component {
 	renderPets(pets){
-		return pets.map(pet => {
-			return <p> { pet.animal_name } </p>;
+		return pets.map( pet => {
+			return <p key={pet.id}> { pet.animal_name } </p>;
 		});
 	}
-	
+
 	render(){
 		console.log('rendering savedpets!')
 		return (
